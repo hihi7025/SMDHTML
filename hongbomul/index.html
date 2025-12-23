@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMD 홍보물</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            background-color: #000;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+        }
+        img {
+            max-width: 100%; height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <img id="random-image" src="" alt="홍보물">
+
+    <script>
+        // 보여줄 이미지 파일 이름들을 배열에 넣습니다.
+        // 만약 확장자가 다르면 (예: .jpg) 아래 이름을 수정하세요.
+        const images = ['poster1.png', 'poster2.png'];
+
+        // 0 또는 1 중 하나를 랜덤으로 뽑습니다.
+        const randomIndex = Math.floor(Math.random() * images.length);
+
+        // 뽑힌 이미지를 화면에 뿌려줍니다.
+        document.getElementById('random-image').src = images[randomIndex];
+    </script>
+</body>
+</html>
