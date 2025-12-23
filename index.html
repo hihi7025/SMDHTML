@@ -11,6 +11,7 @@
       font-family: 'Pretendard', sans-serif;
       display: flex; flex-direction: column; align-items: center;
       min-height: 100vh;
+      padding-bottom: 100px; /* 버튼 공간 확보 */
     }
     .logo { position: absolute; top: 20px; left: 20px; font-size: 24px; font-weight: 800; }
     .container { margin-top: 80px; width: 100%; max-width: 500px; text-align: center; }
@@ -18,24 +19,29 @@
     .reward-card {
       background-color: #fff; color: #000;
       margin-bottom: 30px; padding: 30px;
-      border-radius: 40px; position: relative;
+      border-radius: 40px; text-align: left;
     }
     
-    /* 수정 가능한 영역 표시 */
-    .editable { padding: 5px; border-radius: 10px; outline: none; transition: 0.3s; }
-    .editable:focus { background: #eef2ff; box-shadow: 0 0 0 3px #4f46e5; }
+    /* 수정 가능 영역 */
+    .editable { outline: none; transition: 0.2s; padding: 5px; border-radius: 10px; }
+    .editable:focus { background: #f0f4ff; box-shadow: 0 0 0 3px #4f46e5; }
 
-    h2 { margin-top: 0; font-size: 28px; font-weight: 800; }
-    .content { font-size: 18px; line-height: 1.6; white-space: pre-wrap; }
+    h2 { margin-top: 0; font-size: 26px; font-weight: 800; }
+    .content { font-size: 18px; line-height: 1.6; white-space: pre-wrap; min-height: 40px; }
     
-    /* 저장 버튼 */
+    /* 우하단 고정 저장 버튼 */
     .save-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
       background: #4f46e5; color: white; border: none;
-      padding: 15px 40px; border-radius: 50px;
-      font-size: 18px; font-weight: bold; cursor: pointer;
-      margin-top: 20px; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+      padding: 15px 25px; border-radius: 50px;
+      font-size: 16px; font-weight: bold; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex; align-items: center; gap: 8px;
     }
-    .save-btn:active { transform: scale(0.95); }
+    .save-btn:active { transform: scale(0.9); }
   </style>
 </head>
 <body>
@@ -45,19 +51,21 @@
   <div class="container">
     <div class="reward-card">
       <h2 id="title1" class="editable" contenteditable="true">RC카 볼링 보상 🎳</h2>
-      <div id="desc1" class="content editable" contenteditable="true">내용을 입력하세요.</div>
+      <div id="desc1" class="content editable" contenteditable="true">여기를 클릭해서 내용을 입력하세요.</div>
     </div>
 
     <div class="reward-card">
       <h2 id="title2" class="editable" contenteditable="true">RC카 축구 보상 ⚽</h2>
-      <div id="desc2" class="content editable" contenteditable="true">내용을 입력하세요.</div>
+      <div id="desc2" class="content editable" contenteditable="true">여기를 클릭해서 내용을 입력하세요.</div>
     </div>
-
-    <button class="save-btn" onclick="saveData()">변경사항 저장하기</button>
   </div>
 
+  <button class="save-btn" onclick="saveData()">
+    💾 저장하기
+  </button>
+
   <script>
-    // 페이지 로드 시 저장된 데이터 불러오기
+    // 저장된 데이터 불러오기
     window.onload = function() {
       const ids = ['title1', 'desc1', 'title2', 'desc2'];
       ids.forEach(id => {
@@ -66,14 +74,14 @@
       });
     };
 
-    // 데이터 저장 함수
+    // 데이터 저장
     function saveData() {
       const ids = ['title1', 'desc1', 'title2', 'desc2'];
       ids.forEach(id => {
         const value = document.getElementById(id).innerText;
         localStorage.setItem(id, value);
       });
-      alert('저장되었습니다! 이제 새로고침해도 유지됩니다.');
+      alert('저장 완료! 이제 창을 닫아도 내용이 유지됩니다.');
     }
   </script>
 
