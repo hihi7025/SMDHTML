@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>SMD - 보상 관리</title>
   <style>
-    /* 스크롤이 생기지 않도록 고정 */
+    /* 전체 배경 및 레이아웃 */
     html, body {
       margin: 0; padding: 0;
       height: 100%; overflow: hidden;
@@ -19,59 +19,65 @@
       align-items: center;
       padding: 0 20px;
     }
-    .logo { position: absolute; top: 15px; left: 20px; font-size: 18px; font-weight: 800; opacity: 0.6; }
+
+    /* 좌측 상단 SMD */
+    .logo { position: absolute; top: 20px; left: 20px; font-size: 22px; font-weight: 800; opacity: 0.7; }
     
     .container { 
       width: 100%; 
-      max-width: 400px; 
+      max-width: 500px; /* 처음처럼 너비를 다시 키움 */
       display: flex;
       flex-direction: column;
-      gap: 15px; /* 카드 사이 간격 축소 */
+      gap: 20px; /* 카드 사이 적당한 간격 */
     }
     
+    /* 보상 카드 (처음처럼 큼직하고 둥글게) */
     .reward-card {
       background-color: #fff; color: #000;
-      padding: 25px 20px;
-      border-radius: 30px; 
+      padding: 35px 25px; /* 내부 여백을 늘려 크기 키움 */
+      border-radius: 40px; /* 처음처럼 더 둥글게 */
       text-align: center;
       box-sizing: border-box;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
     }
     
-    .editable { outline: none; padding: 3px; border-radius: 8px; }
-    .editable:focus { background: #f5f5f5; }
+    .editable { outline: none; padding: 5px; border-radius: 10px; transition: 0.2s; }
+    .editable:focus { background: #f0f0f0; }
 
-    h2 { margin: 0 0 10px 0; font-size: 20px; font-weight: 800; }
-    .content { font-size: 15px; line-height: 1.5; white-space: pre-wrap; color: #333; }
+    h2 { margin: 0 0 15px 0; font-size: 26px; font-weight: 800; }
+    .content { font-size: 18px; line-height: 1.6; white-space: pre-wrap; color: #111; font-weight: 500; }
     
-    /* ⭐ 카드 바로 아래 붙는 심플 푸터 ⭐ */
+    /* 하단 푸터 영역 */
     .footer-area {
-      margin-top: 25px;
+      margin-top: 35px; /* 카드와 적당한 거리 유지 */
       width: 100%;
-      max-width: 380px;
+      max-width: 480px;
     }
     .footer-line {
       border-top: 1px solid #333;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .footer-content {
       display: flex;
       justify-content: space-between;
-      font-size: 11px;
-      color: #666;
+      font-size: 12px;
+      color: #777;
+      padding: 0 5px;
     }
-    .footer-content b { font-weight: 900; color: #888; }
+    .footer-content b { font-weight: 900; color: #aaa; }
 
-    /* 저장 버튼: 우하단 고정 */
+    /* 우하단 저장 버튼 */
     .save-btn {
       position: fixed;
-      right: 15px;
-      bottom: 15px;
+      right: 20px;
+      bottom: 20px;
       background: #4f46e5; color: white; border: none;
-      padding: 10px 18px; border-radius: 40px;
-      font-size: 13px; font-weight: bold; cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      padding: 14px 22px; border-radius: 50px;
+      font-size: 14px; font-weight: bold; cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.6);
       z-index: 9999;
     }
+    .save-btn:active { transform: scale(0.95); }
   </style>
 </head>
 <body>
@@ -81,12 +87,12 @@
   <div class="container">
     <div class="reward-card">
       <h2 id="title1" class="editable" contenteditable="true">RC카 볼링 보상 🎳</h2>
-      <div id="desc1" class="content editable" contenteditable="true">내용을 입력하세요.</div>
+      <div id="desc1" class="content editable" contenteditable="true">여기를 클릭해서 내용을 입력하세요.</div>
     </div>
 
     <div class="reward-card">
       <h2 id="title2" class="editable" contenteditable="true">RC카 축구 보상 ⚽</h2>
-      <div id="desc2" class="content editable" contenteditable="true">내용을 입력하세요.</div>
+      <div id="desc2" class="content editable" contenteditable="true">여기를 클릭해서 내용을 입력하세요.</div>
     </div>
 
     <div class="footer-area">
@@ -98,9 +104,10 @@
     </div>
   </div>
 
-  <button class="save-btn" onclick="saveData()">💾 저장</button>
+  <button class="save-btn" onclick="saveData()">💾 저장하기</button>
 
   <script>
+    // 시간 업데이트
     function updateClock() {
       const now = new Date();
       const timeStr = now.getFullYear() + '. ' + 
@@ -114,6 +121,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
+    // 데이터 불러오기
     window.onload = function() {
       const ids = ['title1', 'desc1', 'title2', 'desc2'];
       ids.forEach(id => {
@@ -123,6 +131,7 @@
       updateClock();
     };
 
+    // 데이터 저장
     function saveData() {
       const ids = ['title1', 'desc1', 'title2', 'desc2'];
       ids.forEach(id => {
